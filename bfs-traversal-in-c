@@ -1,0 +1,133 @@
+Breadth-first search (BFS) is an algorithm to search or search tree or graph data structures. It starts at the tree root (or some arbitrary node of the graph, sometimes called the 'search key'), and searches for all neighboring nodes at the current depth before moving on to the next depth level node.
+
+It uses the opposite strategy as depth-first searching, forcing backtracking and other nodes to expand as far as possible before exploring the node branch.
+
+
+The Breadth-first-search traversal of graph in c-programming is:
+
+C
+
+#include<stdio.h>
+int G[20][20], queue[20], visited[20], n, i, j, f = 0, r = 0,result[20];
+int static k=1;
+int enque(int x)//que operation
+{
+	if(r!=n)
+	queue[r++]=x;
+}
+int isempty() //to check que is full or not
+{ 
+	
+	if(r==n+1){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+}
+int isnotins(int y) 
+  /*to check if the number already exists in
+  queue or not if not exists we  insert in queue.*/
+{ 
+	int flag=0;
+	for(j=0;j<r;j++){
+		if(queue[j]==y){
+			flag=1;
+			break;
+		}
+	}
+	if(flag==1)
+	return 0;
+	else
+	return 1;
+
+}
+int deque(){
+	f++;
+}
+int bfs(int s){
+	
+	if(f!=n)// how many time the bfs should happen
+    {
+		if(isnotins(s))//checking if the number is present or not
+        {
+		enque(s);
+        }
+	    visited[s]=1;
+	    result[k]=s;
+	for(i=1;i<=n;i++)
+    {
+		if(G[s][i]==1&&visited[i]==0&&isempty())
+        {
+		  if(isnotins(i))
+          {
+			enque(i);
+		  }	
+	    }
+      }
+	deque();
+	k++;
+	bfs(queue[f]);	//recursive call
+}
+
+	}
+int main(){
+	int val,vertex[20];
+	printf("Enter no of vertices: ");
+	scanf("%d",&n);
+	printf("Enter vertices: \n");
+	for(i=0;i<n;i++)
+    {
+		scanf("%d",&vertex[i]);
+	}
+	for(i=1;i<=n;i++){
+		visited[i]=0;
+	}
+	printf("Enter matrix\n");
+	for(i=1;i<=n;i++){
+		for(j=1;j<=n;j++){
+			
+			scanf("%d",&G[i][j]);
+			
+		}
+	}
+	printf("Enter the starting vertex( 1st or 2nd ...): ");
+	scanf("%d",&val);
+	bfs(val);
+	printf("The BFS traversal is: \n");
+	for(i=1;i<=n;i++){
+		printf("%d ",vertex[result[i]-1]);
+      /* we use vertex[result[i]-1] as vertex array starts 
+      from 0 . if you dont want custom vertices you can use
+      result[i] (removing scanning of vertices) directly for 
+      traversal with 
+      default numbers 1,2,3,4..*/
+	}
+}
+
+Input:
+number of vertices: 4
+vertices:
+22
+34
+56
+12
+Matrix:
+0 1 1 0
+1 0 1 1
+1 1 0 1
+0 1 1 0
+Enter starting vertex: 3
+
+
+
+
+
+
+for the above matrix
+
+Output:
+The BFS traversal is (start from vertex 3):
+56 22 34 12
+
+
